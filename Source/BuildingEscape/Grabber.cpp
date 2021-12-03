@@ -31,20 +31,6 @@ void UGrabber::BeginPlay()
 	SetupInputComponent();
 }
 
-void UGrabber::FindPhysicsHandle()
-{
-	// Checking physics handle component
-	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle)
-	{
-		// Physics handle is bound
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("No physics handle component found in %s"), *GetOwner()->GetName());
-	}
-}
-
 // Set up the input component 
 void UGrabber::SetupInputComponent()
 {
@@ -69,21 +55,26 @@ void UGrabber::SetupInputComponent()
 	}
 }
 
+// Checking physics handle component
+void UGrabber::FindPhysicsHandle()
+{
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle == nullptr) // nullptr avoid the program to crash if no PhysicsHandle is attached to any component
+	{
+		// Physics handle is bound
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("No physics handle component found in %s"), *GetOwner()->GetName());
+	}
+}
+
 
 void UGrabber::Grab()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grabber pressed"));
+	// UE_LOG(LogTemp, Warning, TEXT("Grabber pressed")); // for testing purpose
 
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint( //'GetPlayerViewPoint' function is void and has 2 parameters with 'out' function, i.e. it will change the vaue of a variable
-		OUT PlayerViewPointLocation,  //The 'OUT' macro (see #define above) does nothing to the code.
-		OUT PlayerViewPointRotation
-	);
-
-	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
-
-	// 1. Ray-cast when key is pressed and see if we reached any actor with any physic body collision channel set
+	// Ray-cast when key is pressed and see if we reached any actor with any physic body collision channel set
 	FHitResult HitResult = GetFirstPhysicsBodyInReach();
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 	
@@ -95,15 +86,17 @@ void UGrabber::Grab()
 				(
 					ComponentToGrab,
 					NAME_None,
-					LineTraceEnd
+					GetPlayerReach()
 				);
 	}
 }
 
 
+
+
 void UGrabber::Release()
 {
-	UE_LOG (LogTemp, Warning, TEXT("Grabber released"))
+	// UE_LOG (LogTemp, Warning, TEXT("Grabber released")) // For testing purpose
 
 	//Remove/release physics handle
 		PhysicsHandle->ReleaseComponent();
@@ -116,55 +109,18 @@ void UGrabber::Release()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-
-
-	// Get the player's view point
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint( //'GetPlayerViewPoint' function is void and has 2 parameters with 'out' function, i.e. it will change the vaue of a variable
-		OUT PlayerViewPointLocation,  //The 'OUT' macro (see #define above) does nothing to the code.
-		OUT PlayerViewPointRotation   //It is just for readibility because the 2 param will be modified
-	);
-
-	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
-
-
+		
 	// If the physics handle is attached
 	if (PhysicsHandle->GrabbedComponent)
 	{
-		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+		PhysicsHandle->SetTargetLocation(GetPlayerReach());
 	}
 	    // move the object we are holding
 }
 
 
-
 FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 {
-	// Get the player's view point
-	FVector PlayerViewPointLocation;
-	FRotator PlayerViewPointRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint( //'GetPlayerViewPoint' function is void and has 2 parameters with 'out' function, i.e. it will change the vaue of a variable
-		OUT PlayerViewPointLocation,  //The 'OUT' macro (see #define above) does nothing to the code.
-		OUT PlayerViewPointRotation   //It is just for readibility because the 2 param will be modified
-	); 
-
-	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
-
-	/*  ####   CODE TESTING PURPOSE ONLY - START   ####
-	// Logout the player view
-	UE_LOG(LogTemp, Warning, TEXT("ViewPoint location: %s, Viewpoint rotation: %s"),
-		   *PlayerViewPointLocation.ToString(),
-		   *PlayerViewPointRotation.ToString()
-		   );
-
-	// Ray-cast out to a certain distance Draw line from player to show the reach
-	DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 255, 0), false, 0.f, 0, 5);
-	####   CODE TESTING PURPOSE ONLY - END     #### */
-
-	
-
 	// See what is hitting
 	FHitResult Hit;
 
@@ -176,18 +132,53 @@ FHitResult UGrabber::GetFirstPhysicsBodyInReach() const
 
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT Hit, // it outs a results, i.e. the object that is being hit
-		PlayerViewPointLocation, // from where the ray-cast starts (i.e. middle of the spawn sphere, see above))
-		LineTraceEnd,   // where the ray-cast ends (see above)
+		GetPlayerWorldPosition(), // from where the ray-cast starts (i.e. middle of the spawn sphere, see above))
+		GetPlayerReach(),   // where the ray-cast ends (see above)
 		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), // type of collision object type used in UE (see Collision/Collision Presets/Object type, in UE)
 		TraceParams);
 
-	// See what the ray hits
-	AActor* ActorHit = Hit.GetActor();
+	return Hit;
 
+	// See what the ray hits - For testing purpose only
+	/*AActor* ActorHit = Hit.GetActor();
 	if (ActorHit)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("The object hit is: %s"), *(ActorHit->GetName()));
 	}
+	return Hit;*/
+}
 
-	return Hit;
+FVector UGrabber::GetPlayerReach() const
+{
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint( //'GetPlayerViewPoint' function is void and has 2 parameters with 'out' function, i.e. it will change the vaue of a variable
+		OUT PlayerViewPointLocation,  //The 'OUT' macro (see #define above) does nothing to the code.
+		OUT PlayerViewPointRotation
+	);
+
+	return PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+}
+
+FVector UGrabber::GetPlayerWorldPosition() const
+{
+	// Get the player's view point
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint( //'GetPlayerViewPoint' function is void and has 2 parameters with 'out' function, i.e. it will change the vaue of a variable
+		OUT PlayerViewPointLocation,   //The 'OUT' macro (see #define above) does nothing to the code.
+		OUT PlayerViewPointRotation    //It is just for readibility because the 2 param will be modified
+	);
+	return PlayerViewPointLocation;
+
+	/*  ####   CODE TESTING PURPOSE ONLY - START   ####
+	// Logout the player view
+	UE_LOG(LogTemp, Warning, TEXT("ViewPoint location: %s, Viewpoint rotation: %s"),
+		   *PlayerViewPointLocation.ToString(),
+		   *PlayerViewPointRotation.ToString()
+		   );
+
+	// Ray-cast out to a certain distance Draw line from player to show the reach
+	DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd, FColor(0, 255, 0), false, 0.f, 0, 5);
+	####   CODE TESTING PURPOSE ONLY - END     #### */
 }
