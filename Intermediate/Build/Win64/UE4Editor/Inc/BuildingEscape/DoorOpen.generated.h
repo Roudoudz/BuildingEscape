@@ -61,8 +61,9 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UDoorOpen); \
 #define BuildingEscape_Source_BuildingEscape_DoorOpen_h_14_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__TargetYaw() { return STRUCT_OFFSET(UDoorOpen, TargetYaw); } \
 	FORCEINLINE static uint32 __PPO__Trigger_Volume() { return STRUCT_OFFSET(UDoorOpen, Trigger_Volume); } \
-	FORCEINLINE static uint32 __PPO__ActorThatTriggers() { return STRUCT_OFFSET(UDoorOpen, ActorThatTriggers); } \
-	FORCEINLINE static uint32 __PPO__DoorCloseDelay() { return STRUCT_OFFSET(UDoorOpen, DoorCloseDelay); }
+	FORCEINLINE static uint32 __PPO__DoorCloseDelay() { return STRUCT_OFFSET(UDoorOpen, DoorCloseDelay); } \
+	FORCEINLINE static uint32 __PPO__TotalMassToOpen() { return STRUCT_OFFSET(UDoorOpen, TotalMassToOpen); } \
+	FORCEINLINE static uint32 __PPO__AudioComponent() { return STRUCT_OFFSET(UDoorOpen, AudioComponent); }
 
 
 #define BuildingEscape_Source_BuildingEscape_DoorOpen_h_11_PROLOG

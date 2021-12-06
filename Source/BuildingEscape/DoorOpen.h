@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "CoreMinimal.h"
 #include "Engine/TriggerVolume.h"
-#include "DoorOpen.generated.h"
+#include "DoorOpen.generated.h" //needs to be always at the bottom of the #include
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -26,6 +26,13 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
+	float TotalMassActors() const;
+	void FindAudioComponent();
+	void FindTriggerVolume();
+
+	// Tracks whether the sound has been played
+	bool OpenDoorSoundPlayed = false; //doors are not open at the beginning of the play
+	bool CloseDoorSoundPlayed = true; // doors are closed at the beginning of the play. They are still closed until they are opened
 
 
 private:
@@ -33,19 +40,24 @@ private:
 	float InitialYaw;
 	float CurrentYaw;
 	float CurrentTimeInTrigger = 0.f;
-	float CurrentTimeOutTrigger = 0.f;
-	
+		
 	// Edit the parameters in the UE editor
 	UPROPERTY(EditAnywhere)
 		float TargetYaw = 90.f;
 	
 	UPROPERTY(EditAnywhere)
-		ATriggerVolume* Trigger_Volume;
+		ATriggerVolume* Trigger_Volume = nullptr;
 
-	UPROPERTY(EditAnywhere)
-		AActor* ActorThatTriggers;
+	// used in previous version (see .cpp)
+	// UPROPERTY(EditAnywhere)
+	//	AActor* ActorThatTriggers = nullptr;
 
 	UPROPERTY(EditAnywhere)
 		float DoorCloseDelay = 0.6f;
 
+	UPROPERTY(EditAnywhere)
+		float TotalMassToOpen = 60.f;
+
+	UPROPERTY()
+		UAudioComponent* AudioComponent = nullptr;
 };

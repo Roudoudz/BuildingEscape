@@ -18,7 +18,7 @@ void EmptyLinkFunctionForGeneratedCodeDoorOpen() {}
 	ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 	UPackage* Z_Construct_UPackage__Script_BuildingEscape();
 	ENGINE_API UClass* Z_Construct_UClass_ATriggerVolume_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UAudioComponent_NoRegister();
 // End Cross Module References
 	void UDoorOpen::StaticRegisterNativesUDoorOpen()
 	{
@@ -42,13 +42,17 @@ void EmptyLinkFunctionForGeneratedCodeDoorOpen() {}
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Trigger_Volume;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ActorThatTriggers_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ActorThatTriggers;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_DoorCloseDelay_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_DoorCloseDelay;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_TotalMassToOpen_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_TotalMassToOpen;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_AudioComponent_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_AudioComponent;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -82,24 +86,34 @@ void EmptyLinkFunctionForGeneratedCodeDoorOpen() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDoorOpen_Statics::NewProp_Trigger_Volume = { "Trigger_Volume", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDoorOpen, Trigger_Volume), Z_Construct_UClass_ATriggerVolume_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UDoorOpen_Statics::NewProp_Trigger_Volume_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDoorOpen_Statics::NewProp_Trigger_Volume_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDoorOpen_Statics::NewProp_ActorThatTriggers_MetaData[] = {
-		{ "Category", "DoorOpen" },
-		{ "ModuleRelativePath", "DoorOpen.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDoorOpen_Statics::NewProp_ActorThatTriggers = { "ActorThatTriggers", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDoorOpen, ActorThatTriggers), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UDoorOpen_Statics::NewProp_ActorThatTriggers_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDoorOpen_Statics::NewProp_ActorThatTriggers_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDoorOpen_Statics::NewProp_DoorCloseDelay_MetaData[] = {
 		{ "Category", "DoorOpen" },
+		{ "Comment", "// used in previous version (see .cpp)\n// UPROPERTY(EditAnywhere)\n//\x09""AActor* ActorThatTriggers = nullptr;\n" },
 		{ "ModuleRelativePath", "DoorOpen.h" },
+		{ "ToolTip", "used in previous version (see .cpp)\nUPROPERTY(EditAnywhere)\n      AActor* ActorThatTriggers = nullptr;" },
 	};
 #endif
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UDoorOpen_Statics::NewProp_DoorCloseDelay = { "DoorCloseDelay", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDoorOpen, DoorCloseDelay), METADATA_PARAMS(Z_Construct_UClass_UDoorOpen_Statics::NewProp_DoorCloseDelay_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDoorOpen_Statics::NewProp_DoorCloseDelay_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDoorOpen_Statics::NewProp_TotalMassToOpen_MetaData[] = {
+		{ "Category", "DoorOpen" },
+		{ "ModuleRelativePath", "DoorOpen.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UDoorOpen_Statics::NewProp_TotalMassToOpen = { "TotalMassToOpen", nullptr, (EPropertyFlags)0x0040000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDoorOpen, TotalMassToOpen), METADATA_PARAMS(Z_Construct_UClass_UDoorOpen_Statics::NewProp_TotalMassToOpen_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDoorOpen_Statics::NewProp_TotalMassToOpen_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDoorOpen_Statics::NewProp_AudioComponent_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "DoorOpen.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDoorOpen_Statics::NewProp_AudioComponent = { "AudioComponent", nullptr, (EPropertyFlags)0x0040000000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDoorOpen, AudioComponent), Z_Construct_UClass_UAudioComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UDoorOpen_Statics::NewProp_AudioComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDoorOpen_Statics::NewProp_AudioComponent_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDoorOpen_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_TargetYaw,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_Trigger_Volume,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_ActorThatTriggers,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_DoorCloseDelay,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_TotalMassToOpen,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDoorOpen_Statics::NewProp_AudioComponent,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UDoorOpen_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UDoorOpen>::IsAbstract,
@@ -128,7 +142,7 @@ void EmptyLinkFunctionForGeneratedCodeDoorOpen() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UDoorOpen, 718661424);
+	IMPLEMENT_CLASS(UDoorOpen, 2859960850);
 	template<> BUILDINGESCAPE_API UClass* StaticClass<UDoorOpen>()
 	{
 		return UDoorOpen::StaticClass();

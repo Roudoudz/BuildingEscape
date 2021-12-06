@@ -3,3 +3,13 @@ D:\Programming Projects\Unreal Engine 4\Building_Escape\BuildingEscape\Source\Bu
 D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\Engine\Classes\Engine/TriggerVolume.h
 D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\TriggerVolume.generated.h
 D:\Programming Projects\Unreal Engine 4\Building_Escape\BuildingEscape\Intermediate\Build\Win64\UE4Editor\Inc\BuildingEscape\DoorOpen.generated.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\Engine\Classes\Components/AudioComponent.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\Engine\Classes\Sound/QuartzSubscription.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\AudioMixer\Public\Quartz/AudioMixerClockHandle.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\AudioMixer\Public\Quartz/QuartzSubsystem.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\AudioMixer\QuartzSubsystem.generated.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\AudioMixer\Public\Quartz/QuartzMetronome.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\AudioMixer\AudioMixerClockHandle.generated.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\AudioMixer\Public\Quartz/AudioMixerQuantizedCommands.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Source\Runtime\AudioMixer\Public\Quartz\AudioMixerClock.h
+D:\Program Files\Unreal Engine 4\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\AudioComponent.generated.h
