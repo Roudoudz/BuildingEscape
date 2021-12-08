@@ -48,9 +48,10 @@ private:
 	UPROPERTY(EditAnywhere)
 		ATriggerVolume* Trigger_Volume = nullptr;
 
-	// used in previous version (see .cpp)
+	// Used to assign the DefaultPawn to the class DoorOpen directly in UE. Will appear in the details of the class. Can be assigned with drop-down list when the 
+	// game runs, so that the player can 'eject' (otherwise, the default pawn does not appear).
 	// UPROPERTY(EditAnywhere)
-	//	AActor* ActorThatTriggers = nullptr;
+	//	AActor* Pawn = nullptr;  // Pawn derives from the class AActor, so can be defined as such. 
 
 	UPROPERTY(EditAnywhere)
 		float DoorCloseDelay = 0.6f;
