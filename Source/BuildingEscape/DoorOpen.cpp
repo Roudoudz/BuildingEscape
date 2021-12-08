@@ -35,7 +35,8 @@ void UDoorOpen::BeginPlay()
 	FindAudioComponent();
 
 	// Get the pawn, i.e. what is controlled by the player (only used in previous version, see comment below)
-	// ActorThatTriggers = GetWorld()->GetFirstPlayerController()->GetPawn();
+	// Is used to trigger the TriggerVolume
+	// Pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 
 	
 }
@@ -73,7 +74,7 @@ void UDoorOpen::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// The 1st 'Trigger_Volume' argument allows the code to run even if a scene object as the 
 	// 'DoorOpen' class but no 'Volume_Trigger' component attach to it (i.e. null pointer)  	
 	// Previous version: 
-	//if (Trigger_Volume && Trigger_Volume->IsOverlappingActor(ActorThatTriggers))
+	//if (Trigger_Volume && Trigger_Volume->IsOverlappingActor(Pawn))
 
 	if (TotalMassActors() > TotalMassToOpen)
 	{
